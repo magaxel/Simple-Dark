@@ -1,7 +1,7 @@
 # Simple Dark Theme
 
-The **Simple Dark** Theme is for [Grav CMS](http://github.com/getgrav/grav). The theme is also available on [GitHub](https://github.com/magaxel/Simple-Dark).
+A theme for [Grav CMS](http://github.com/getgrav/grav). The theme is available on [GitHub](https://github.com/magaxel/Simple-Dark).
 
 ## Description
 
-A simple and dark theme that tries to stay as easy to customize as possible. It supports Font Awsome and provides a search result page.
+A simple and dark theme with support for Font Awsome. It also provides a search result page.
