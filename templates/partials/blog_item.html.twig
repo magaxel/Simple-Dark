@@ -1,0 +1,96 @@
+<div class="list-item h-entry">
+
+    {% set header_image = page.header.header_image | defined(true) %}
+    {% set header_image_width = page.header.header_image_width | defined(900) %}
+    {% set header_image_height = page.header.header_image_height | defined(300) %}
+    {% set header_image_file = page.header.header_image_file %}
+
+    <div class="list-blog-header">
+        {% if page.header.link %}
+            <h3 class="p-name">
+                {% if page.header.continue_link is not sameas(false) %}
+                    <a href="{{ page.url }}">
+                        <i class="fa fa-angle-double-right u-url"></i>
+                    </a>
+                {% endif %}
+                <a href="{{ page.header.link }}" class="u-url">{{ page.title }}</a>
+            {% else %}
+                <h3 class="p-name">
+                    <a href="{{ page.url }}" class="u-url">{{ page.title }}</a>
+                {% endif %}
+                <span class="list-blog-date" style="float: right;">
+                    {{ page.date|date("Y-m-d") }}
+                </span>
+            </h3>
+            {% if header_image %}
+                {% if header_image_file %}
+                    {% set header_image_media = page.media.images[header_image_file] %}
+                {% else %}
+                    {% set header_image_media = page.media.images | first %}
+                {% endif %}
+                {{ header_image_media.cropZoom(header_image_width, header_image_height).html }}
+            {% endif %}
+
+        </div>
+        <div class="list-blog-padding">
+
+            {% if page.header.continue_link is sameas(false) %}
+                <div class="e-content">
+                    {{ page.content }}
+                </div>
+                {% if not truncate %}
+                    {% set show_prev_next = true %}
+                {% endif %}
+            {% elseif truncate and page.summary != page.content %}
+                <div class="p-summary e-content">
+                    {{ page.summary }}
+                </div>
+            {% elseif truncate %}
+                <div class="p-summary e-content">
+                    {{ page.content }}
+                </div>
+            {% else %}
+                <div class="e-content">
+                    {{ page.content }}
+                </div>
+                {% set show_prev_next = true %}
+            {% endif %}
+            {% if page.taxonomy.tag %}
+                <span class="tags">
+                    <b class="hashtag">#</b>
+                    {% for tag in page.taxonomy.tag %}
+                        &nbsp;<a href="{{ blog.url|rtrim('/') }}/tag{{ config.system.param_sep }}{{ tag }}" class="p-tags">{{ tag }}</a>
+                    {% endfor %}
+                </span>
+            {% endif %}
+            {% if show_prev_next %}
+                <div class="prevoius-next">
+                    {% if not page.isLast or not page.isFirst %}
+
+                        <div class="prev-next">
+                            {% if not page.isLast %}
+                                <i class="prev-post">«<a class="button" href="{{ page.prevSibling.url }}">
+                                        Previous post</a>
+                                </i>
+                            {% endif %}
+                            {% if not page.isLast and not page.isFirst %}
+                                ||
+                            {% endif %}
+                            {% if not page.isFirst %}
+                                <a class="button" href="{{ page.nextSibling.url }}">
+                                    <i class="next-post">Next post
+                                    </a>»</i>
+
+                            {% endif %}
+
+                        {% endif %}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="between-content"></div>

@@ -1,0 +1,33 @@
+{% extends 'partials/simplesearch_base.html.twig' %}
+{% block content %}
+    <div class="content-padding">
+            <div class="search-results">
+                    
+                <div class="search-header">
+
+    <h1 class="search-header-title">Search Results</h1>
+    <h3>Query: "{{ query }}" - Found {{ search_results.count }} {{ 'Item'|pluralize(search_results.count) }}</h3>
+                    </div>
+               
+                    <div class="between-content"></div>
+    {% for page in search_results %}
+ 
+    <div class="search-row-padding">
+    <div class="search-entry-content">
+        {% include 'partials/simplesearch_item.html.twig' with {'page':page} %}
+        {% if page.taxonomy.tag %}
+        <span class="tags">
+            <b class="hashtag">#</b>
+            {% for tag in page.taxonomy.tag %}
+                &nbsp;<a href="{{ blog.url|rtrim('/') }}/tag{{ config.system.param_sep }}{{ tag }}" class="p-tags">{{ tag }}</a>
+            {% endfor %}
+        </span>
+    {% endif %}       
+</div> 
+</div> 
+<div class="between-content"></div>
+    {% endfor %}
+
+    </div>
+    </div>
+{% endblock %}

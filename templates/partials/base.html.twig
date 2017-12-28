@@ -1,0 +1,79 @@
+{% set renderStart = microtime(true) %}
+{% set theme_config = attribute(config.themes, config.system.pages.theme) %}
+<!DOCTYPE html>
+<html lang="{{ grav.language.getActive ?: theme_config.default_lang }}">
+<head>
+{% block head %}
+    <meta charset="utf-8" />
+    <title>{% if header.title %}{{ header.title|e('html') }} | {% endif %}{{ site.title|e('html') }}</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include 'partials/metadata.html.twig' %}
+    
+    <link rel="icon" type="image/png" href="{{ url('theme://images/logo.png') }}" />
+    
+
+    <link rel="canonical" href="{{ page.url(true, true) }}" />
+
+    {% block stylesheets %}
+        {% do assets.addCss('theme://css/custom.css', 98) %}
+      
+    {% endblock %}
+    {{ assets.css() }}
+
+    {% block javascripts %}
+        {% do assets.addJs('jquery', 100) %}
+    {% endblock %}
+    {{ assets.js() }}
+{% endblock head%}
+<link rel="stylesheet" href="{{ url('theme://font-awesome/css/font-awesome.min.css') }}">
+</head>
+
+<body id="top" class="{{ page.header.body_classes }}">
+{% block header %}
+    <div class="header">
+        <div class="wrapper padding">
+            <a class="logo left" href="{{ base_url == '' ? '/' : base_url }}">
+                
+                {{ config.site.title }}
+            </a>
+            {% block header_navigation %}
+            <nav class="main-nav">
+                {% include 'partials/navigation.html.twig' %}
+            </nav>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+<div class="banner-container">
+    <div class="banner-text-padding"><div class="banner-text">{{ site.metadata.description }}</div></div>
+    <img id="banner" src="/user/themes/simple-dark/images//banner.jpg"></img>
+
+</div>
+{% block body %}
+    <section id="body">
+        <div class="wrapper padding">
+        {% block content %}{% endblock %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block footer %}
+    <div class="footer text-center">
+        <div class="wrapper padding">
+            <b id="footer-bold"></b>
+            {% set renderStop = microtime(true) %}
+            <b>IP:</b> {{ uri.ip() }}, <b>OS:</b> {{ browser.platform}}, <b>Browser:</b> {{ browser.browser}} {{ browser.version}}, <b>Server load time: </b> {{ round((renderStop - renderStart), 3) }} <b>seconds</b>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bottom %}
+    {{ assets.js('bottom') }}
+    <script src="/user/themes/simple-dark/js/hide-header-stuff.js"></script>
+{% endblock %}
+
+</body>
+</html>
