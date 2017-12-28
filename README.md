@@ -1,6 +1,6 @@
 # Simple Dark Theme
 
-The **Simple Dark** Theme is for [Grav CMS](http://github.com/getgrav/grav). The theme is also available on [Grav CMS](https://github.com/magaxel/Simple-Dark).
+The **Simple Dark** Theme is for [Grav CMS](http://github.com/getgrav/grav). The theme is also available on [GitHub](https://github.com/magaxel/Simple-Dark).
 
 ## Description
 
